@@ -94,7 +94,7 @@ public class Detail_Customer_Activity extends AppCompatActivity {
                         txtLocalidad.setText(String.format("Localidad: %s",c.getString("clocalid")));
                         txtCredito.setText(String.format("Credito: %s",c.getString("nlimcred")));
                         txtPagWeb.setText(String.format("Página Web: %s",c.getString("cpagweb_")));
-                        txtGenero.setText(String.format("Género: %s",((c.getString("csexo").equals("0"))?"Mujer":"Varón")));
+                        txtGenero.setText(String.format("Género: %s",((c.getString("csexo").equals("M"))?"Varón":"Mujer")));
                         txtFechaNacimiento.setText(String.format("Fecha Nacimiento: %s",c.getString("ffecnaci")));
 
 
