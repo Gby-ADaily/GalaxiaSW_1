@@ -17,9 +17,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
     private Button buscar,agregar;
     private ListView listaa;
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     Context context;
     static ArrayList<cliente_CLASS> lista;
     JSONArray pers;
+    SearchView srvBuscar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,10 @@ public class MainActivity extends AppCompatActivity {
         listaa = (ListView) findViewById(R.id.listViewLista);
         buscar = (Button) findViewById(R.id.btnBusqueda);
         agregar = (Button) findViewById(R.id.btnAgregar);
+
+        srvBuscar = (SearchView) findViewById(R.id.srvBuscar);
+        srvBuscar.setOnQueryTextListener(MainActivity.this);
+
         buscar.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -52,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
                 listaa.setAdapter(null);
                 URL= String.format("%s?contador=%d",URL_base,contador);
                 new GetContacts(listaa).execute();
-                agregar.setVisibility(View.VISIBLE);
             }
         });
         agregar.setOnClickListener(new View.OnClickListener(){
@@ -64,6 +69,24 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+// filtrado//
+    @Override
+    public boolean onQueryTextSubmit(String s) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String s) {
+        String text = s;
+        if(text.length()>3){
+            listaa.setAdapter(null);
+            agregar.setVisibility(View.GONE);
+            URL= String.format("%s?filtro=%s",URL_base,text);
+            new GetContacts(listaa).execute();
+        }
+        return false;
+    }
+// lista //
     private class GetContacts extends AsyncTask<Void, Void, Void> {
         ListView list;
         private ProgressDialog pDialog;
@@ -162,6 +185,7 @@ public class MainActivity extends AppCompatActivity {
                 listaa.setAdapter(result);
                 listaa.setSelection(contador*20);
                 listaa.requestFocus();
+                agregar.setVisibility(View.VISIBLE);
                 contador++;
             }
         }
