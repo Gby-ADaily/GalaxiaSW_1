@@ -6,6 +6,10 @@ apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 26
+    //---------//
+    useLibrary 'org.apache.http.legacy'
+    //compile 'com.android.support:appcompat-v7:26.1.0'
+    //-----------//
     defaultConfig {
         applicationId "com.example.toshiba_glx.galaxiasw_1"
         minSdkVersion 15
