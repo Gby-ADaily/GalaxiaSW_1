@@ -21,12 +21,13 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button buscar;
+    private Button buscar,agregar;
     private ListView listaa;
     String searchTerm ;
     //SI OS FIJAIS LA URL EMPIEZA POR dl EN VEZ DE www
-    String URL = "http://192.168.1.35/galaxiaSW/consulta.php";
-
+    String URL_base = "http://192.168.1.35/galaxiaSW/consulta.php";
+    String URL;
+    int contador=0;
     Activity a;
     Context context;
     static ArrayList<cliente_CLASS> lista;
@@ -41,11 +42,24 @@ public class MainActivity extends AppCompatActivity {
         a=this;
         context=getApplicationContext();
         listaa = (ListView) findViewById(R.id.listViewLista);
-        buscar = (Button) findViewById(R.id.busqueda);
+        buscar = (Button) findViewById(R.id.btnBusqueda);
+        agregar = (Button) findViewById(R.id.btnAgregar);
         buscar.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
+                contador=0;
+                listaa.setAdapter(null);
+                URL= String.format("%s?contador=%d",URL_base,contador);
+                new GetContacts(listaa).execute();
+                agregar.setVisibility(View.VISIBLE);
+            }
+        });
+        agregar.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                URL= String.format("%s?contador=%d",URL_base,contador);
                 new GetContacts(listaa).execute();
             }
         });
@@ -146,7 +160,9 @@ public class MainActivity extends AppCompatActivity {
                 // TODO Auto-generated method stub
                 super.onPostExecute(result);
                 listaa.setAdapter(result);
-
+                listaa.setSelection(contador*20);
+                listaa.requestFocus();
+                contador++;
             }
         }
     }
