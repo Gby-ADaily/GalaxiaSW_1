@@ -9,12 +9,14 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -55,9 +57,10 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             public void onClick(View v) {
                 // TODO Auto-generated method stub
                 contador=0;
-                listaa.setAdapter(null);
+                lista.clear();
+                srvBuscar.setQuery("", false);
                 URL= String.format("%s?contador=%d",URL_base,contador);
-                new GetContacts(listaa).execute();
+                new GetContacts(listaa,true).execute();
             }
         });
         agregar.setOnClickListener(new View.OnClickListener(){
@@ -65,7 +68,19 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             public void onClick(View v) {
                 // TODO Auto-generated method stub
                 URL= String.format("%s?contador=%d",URL_base,contador);
-                new GetContacts(listaa).execute();
+                new GetContacts(listaa,true).execute();
+            }
+        });
+        listaa.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView arg0, View arg1, int position, long arg3) {
+                String idTienda = ((TextView) arg1.findViewById(R.id.txtCodigo)).getText().toString();
+                //Toast.makeText(Store_ListActivity.this,"ID "+idTienda,Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, Detail_Customer_Activity.class);
+                intent.putExtra("clienteId", idTienda.replace("CODIGO : ",""));
+                startActivity(intent);
+                //overridePendingTransition(R.anim.right_in, R.anim.right_out);
             }
         });
     }
@@ -79,10 +94,11 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     public boolean onQueryTextChange(String s) {
         String text = s;
         if(text.length()>3){
-            listaa.setAdapter(null);
+            lista.clear();
+            text = text.replace(" ","%20");
             agregar.setVisibility(View.GONE);
             URL= String.format("%s?filtro=%s",URL_base,text);
-            new GetContacts(listaa).execute();
+            new GetContacts(listaa,false).execute();
         }
         return false;
     }
@@ -90,8 +106,10 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     private class GetContacts extends AsyncTask<Void, Void, Void> {
         ListView list;
         private ProgressDialog pDialog;
-        public GetContacts(ListView listaa) {
+        boolean btnAgregar =false;
+        public GetContacts(ListView listaa,boolean btnAgregar) {
             this.list=listaa;
+            this.btnAgregar=btnAgregar;
         }
 
         @Override
@@ -185,7 +203,9 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                 listaa.setAdapter(result);
                 listaa.setSelection(contador*20);
                 listaa.requestFocus();
-                agregar.setVisibility(View.VISIBLE);
+                if(btnAgregar){
+                    agregar.setVisibility(View.VISIBLE);
+                }
                 contador++;
             }
         }

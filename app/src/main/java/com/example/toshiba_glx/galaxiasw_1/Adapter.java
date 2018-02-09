@@ -63,7 +63,7 @@ public class Adapter extends BaseAdapter{
         //CAMPOS
         TextView nombre = (TextView) v.findViewById(R.id.username);
         nombre.setText("NOMBRE : "+dir.getNombre());
-        TextView clase = (TextView) v.findViewById(R.id.clase);
+        TextView clase = (TextView) v.findViewById(R.id.txtCodigo);
         clase.setText("CODIGO : "+dir.getCod());
         TextView equipo = (TextView) v.findViewById(R.id.equipo);
         equipo.setText("RUC : "+dir.getRuc());
