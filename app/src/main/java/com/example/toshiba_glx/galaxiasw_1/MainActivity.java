@@ -14,6 +14,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -28,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     private ListView listaa;
     String searchTerm ;
     //SI OS FIJAIS LA URL EMPIEZA POR dl EN VEZ DE www
-    String URL_base = "http://192.168.1.35/galaxiaSW/consulta.php";
+    String URL_base = "http://192.168.1.18/galaxiaSW/consulta.php";
     String URL;
     int contador=0;
     Activity a;

@@ -6,9 +6,10 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.ListView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -16,7 +17,7 @@ import org.json.JSONObject;
 
 public class Detail_Customer_Activity extends AppCompatActivity {
     String clienteID;
-    String URL_base = "http://192.168.1.35/galaxiaSW/consulta.php";
+    String URL_base = "http://192.168.1.18/galaxiaSW/consulta.php";
     String URL;
     JSONArray pers;
     TextView txtCodigo,txtRuc,txtNombre,txtDireccion
@@ -26,6 +27,10 @@ public class Detail_Customer_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail__customer);
+//llamar la flecha de atras <-    no es necesario ya q en el AndroidManifest esta configurado
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+// If your minSdkVersion is 11 or higher, instead use:
+        // getActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent i = getIntent();
         clienteID = i.getStringExtra("clienteId");
@@ -118,4 +123,32 @@ public class Detail_Customer_Activity extends AppCompatActivity {
             }
         }
     }
+
+    // parte de ACTION BAR
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.ma_activity_detail_customer, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_edit) {
+            Toast.makeText(this, "editar", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(Detail_Customer_Activity.this, Edit_Customer_Activity.class);
+            intent.putExtra("clienteId", clienteID);
+            startActivity(intent);
+            return true;
+        }else if(id == R.id.action_delete) {
+            Toast.makeText(this, "eliminar", Toast.LENGTH_SHORT).show();
+            return true;
+        }else if(id == R.id.action_settings) {
+            Toast.makeText(this, "ajustes", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 }
