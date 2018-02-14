@@ -155,7 +155,7 @@ public class Edit_Customer_Activity extends AppCompatActivity implements View.On
                                     intent.putExtra("clienteId", clienteID);
                                     startActivity(intent);
                                 }else{
-                                    Toast.makeText(Edit_Customer_Activity.this,"No se guardaron los cambio",Toast.LENGTH_SHORT).show();
+                                    onBackPressed();
                                 }
 
                                 }
