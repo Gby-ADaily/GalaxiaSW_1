@@ -22,6 +22,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
@@ -29,7 +30,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     private ListView listaa;
     String searchTerm ;
     //SI OS FIJAIS LA URL EMPIEZA POR dl EN VEZ DE www
-    String URL_base = "http://192.168.1.18/galaxiaSW/consulta.php";
     String URL;
     int contador=0;
     Activity a;
@@ -51,8 +51,8 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         agregar = (Button) findViewById(R.id.btnAgregar);
 
         srvBuscar = (SearchView) findViewById(R.id.srvBuscar);
-        srvBuscar.setOnQueryTextListener(MainActivity.this);
 
+        srvBuscar.setOnQueryTextListener(MainActivity.this);
         buscar.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                 contador=0;
                 lista.clear();
                 srvBuscar.setQuery("", false);
-                URL= String.format("%s?contador=%d",URL_base,contador);
+                URL= String.format("%s?contador=%d",getString(R.string.url),contador);
                 new GetContacts(listaa,true).execute();
             }
         });
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                URL= String.format("%s?contador=%d",URL_base,contador);
+                URL= String.format("%s?contador=%d",getString(R.string.url),contador);
                 new GetContacts(listaa,true).execute();
             }
         });
@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             lista.clear();
             text = text.replace(" ","%20");
             agregar.setVisibility(View.GONE);
-            URL= String.format("%s?filtro=%s",URL_base,text);
+            URL= String.format("%s?filtro=%s",getString(R.string.url),text);
             new GetContacts(listaa,false).execute();
         }
         return false;
@@ -126,10 +126,9 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         @Override
         protected Void doInBackground(Void... arg0) {
             // CREAMOS LA INSTANCIA DE LA CLASE
-            JSONdata sh = new JSONdata();
+            JSONdata sh = new JSONdata(MainActivity.this);
 
             String jsonStr = sh.makeServiceCall(URL, JSONdata.GET);
-
 
             if (jsonStr != null) {
                 try {

@@ -17,7 +17,6 @@ import org.json.JSONObject;
 
 public class Detail_Customer_Activity extends AppCompatActivity {
     String clienteID;
-    String URL_base = "http://192.168.1.18/galaxiaSW/consulta.php";
     String URL;
     JSONArray pers;
     TextView txtCodigo,txtRuc,txtNombre,txtDireccion
@@ -50,7 +49,7 @@ public class Detail_Customer_Activity extends AppCompatActivity {
         txtFechaNacimiento= (TextView) findViewById(R.id.txtFechaNacimiento);
 
 
-        URL = String.format("%s?consulta=%s",URL_base,clienteID);
+        URL = String.format("%s?consulta=%s",getString(R.string.url),clienteID);
         new GetCostumer().execute();
 
     }
@@ -72,7 +71,7 @@ public class Detail_Customer_Activity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... arg0) {
             // CREAMOS LA INSTANCIA DE LA CLASE
-            JSONdata sh = new JSONdata();
+            JSONdata sh = new JSONdata(Detail_Customer_Activity.this);
 
             String jsonStr = sh.makeServiceCall(URL, JSONdata.GET);
 
@@ -80,7 +79,6 @@ public class Detail_Customer_Activity extends AppCompatActivity {
             if (jsonStr != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(jsonStr);
-
                     // Getting JSON Array node
                     pers = jsonObj.getJSONArray("gx_cliente");
 
@@ -101,7 +99,6 @@ public class Detail_Customer_Activity extends AppCompatActivity {
                         txtPagWeb.setText(String.format("Página Web: %s",c.getString("cpagweb_")));
                         txtGenero.setText(String.format("Género: %s",((c.getString("csexo").equals("M"))?"Varón":"Mujer")));
                         txtFechaNacimiento.setText(String.format("Fecha Nacimiento: %s",c.getString("ffecnaci")));
-
 
                     }
                 } catch (JSONException e) {
@@ -131,6 +128,7 @@ public class Detail_Customer_Activity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.ma_activity_detail_customer, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();

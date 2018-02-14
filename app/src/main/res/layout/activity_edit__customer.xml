@@ -39,18 +39,23 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
                         android:text="RUC:"/>
-                    <TextView
-                        android:id="@+id/txtNombre"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:text="Nombre:"/>
-                    <TextView
-                        android:id="@+id/txtDireccion"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:text="Dirección:"/>
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:text="Nombre:"/>
+                        <EditText
+                            android:id="@+id/txtNombre"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Edit Nombre"
+                            android:textSize="13sp"
+                            android:focusable="auto"/>
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
 
@@ -67,150 +72,414 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
                         <TextView
-                            android:id="@+id/txtTelefono"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:text="Dirección:"/>
+                        <EditText
+                            android:id="@+id/txtDireccion"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Edit Dirección"
+                            android:textSize="13sp"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="Telefono:"/>
+                        <EditText
+                            android:id="@+id/txtTelefono"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Edit Telefono"
+                            android:textSize="13sp"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
                         <TextView
-                            android:id="@+id/txtFax"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="Fax:"/>
+                        <EditText
+                            android:id="@+id/txtFax"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Edit Fax"
+                            android:textSize="13sp"/>
+                    </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
                         <TextView
-                            android:id="@+id/txtCelular"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="Celular:"/>
+                        <EditText
+                            android:id="@+id/txtCelular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Edit Celular"
+                            android:textSize="13sp"/>
+                    </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
                         <TextView
-                            android:id="@+id/txtRpm"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="RPM:"/>
+                        <EditText
+                            android:id="@+id/txtRpm"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Edit Rpm"
+                            android:textSize="13sp"/>
+                    </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
                         <TextView
-                            android:id="@+id/txtLocalidad"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="Localidad:"/>
+                        <EditText
+                            android:id="@+id/txtLocalidad"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Edit Localidad"
+                            android:textSize="13sp"/>
+                    </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
                         <TextView
-                            android:id="@+id/txtCredito"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="Credito:"/>
+                        <EditText
+                            android:id="@+id/txtCredito"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Edit Credito"
+                            android:textSize="13sp"/>
+                    </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
                         <TextView
-                            android:id="@+id/txtPagWeb"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="Pagina Web:"/>
+                        <EditText
+                            android:id="@+id/txtPagWeb"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Edit Pag Web"
+                            android:textSize="13sp"/>
+                    </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
                         <TextView
-                            android:id="@+id/txtPrecio"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="Precio:"/>
+                        <EditText
+                            android:id="@+id/txtPrecio"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Edit Precio"
+                            android:textSize="13sp"/>
+                    </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
                         <TextView
-                            android:id="@+id/txtTipoVia"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="Tipo Via:"/>
+                        <EditText
+                            android:id="@+id/txtTipoVia"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Edit Tipo Via"
+                            android:textSize="13sp"/>
+                    </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
                         <TextView
-                            android:id="@+id/txtNumeroVia"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="Número Via:"/>
+                        <EditText
+                            android:id="@+id/txtNumeroVia"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Edit Nombre Via"
+                            android:textSize="13sp"/>
+                    </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
                         <TextView
-                            android:id="@+id/txtIntVia"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="Int via:"/>
+                        <EditText
+                            android:id="@+id/txtIntVia"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Edit Int Via"
+                            android:textSize="13sp"/>
+                    </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
                         <TextView
-                            android:id="@+id/txtZonaVia"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="Zona via:"/>
+                        <EditText
+                            android:id="@+id/txtZonaVia"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Edit Zona Via"
+                            android:textSize="13sp"/>
+                    </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
                         <TextView
-                            android:id="@+id/txtDistritoVia"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="Distrito via:"/>
+                        <EditText
+                            android:id="@+id/txtDistritoVia"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Edit Distrito Via"
+                            android:textSize="13sp"/>
+                    </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
                         <TextView
-                            android:id="@+id/txtProvinciaVia"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="Provincia via:"/>
+                        <EditText
+                            android:id="@+id/txtProvinciaVia"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Edit Provincia Via"
+                            android:textSize="13sp"/>
+                    </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
                         <TextView
-                            android:id="@+id/txtDepartamentoVia"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="Departamento via:"/>
+                        <EditText
+                            android:id="@+id/txtDepartamentoVia"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Edit Departamento Via"
+                            android:textSize="13sp"/>
+                    </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
                         <TextView
-                            android:id="@+id/txtEmail"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="E-mail:"/>
+                        <EditText
+                            android:id="@+id/txtEmail"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Edit Email"
+                            android:textSize="13sp"/>
+                    </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
                         <TextView
-                            android:id="@+id/txtIdCliente"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="Id cliente:"/>
+                        <EditText
+                            android:id="@+id/txtIdCliente"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Edit ID Cliente"
+                            android:textSize="13sp"/>
+                    </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
                         <TextView
-                            android:id="@+id/txtIdZona"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="Id zona:"/>
+                        <EditText
+                            android:id="@+id/txtIdZona"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Edit ID Zona"
+                            android:textSize="13sp"/>
+                    </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
                         <TextView
-                            android:id="@+id/txtComercial"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="Comercial:"/>
+                        <EditText
+                            android:id="@+id/txtComercial"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Edit Comercial"
+                            android:textSize="13sp"/>
+                    </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
                         <TextView
-                            android:id="@+id/txtSituacion"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="Situación:"/>
+                        <EditText
+                            android:id="@+id/txtSituacion"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Edit Situación"
+                            android:textSize="13sp"/>
+                    </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
                         <TextView
-                            android:id="@+id/txtAcumulado"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="Acumulados:"/>
+                        <EditText
+                            android:id="@+id/txtAcumulado"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Edit Acumulado"
+                            android:textSize="13sp"/>
+                    </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
                         <TextView
-                            android:id="@+id/txtEdad"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="Edad:"/>
+                        <EditText
+                            android:id="@+id/txtEdad"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Edit Edad"
+                            android:textSize="13sp"/>
+                    </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
                         <TextView
-                            android:id="@+id/txtGenero"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="Género:"/>
+                        <Spinner
+                            android:id="@+id/spnGenero"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                                android:textSize="13sp" />
+                    </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
                         <TextView
-                            android:id="@+id/txtFechaNacimiento"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="Fecha Nacimiento:"/>
+                        <TextView
+                            android:id="@+id/txtNacimiento"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:text="dd/mm/yyyy"
+                            android:inputType="date"
+                            android:hint="@string/formato_fecha"/>
+
+                            <ImageButton
+                                android:id="@+id/btnPickerDate"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@color/colorAccent"
+                                app:srcCompat="@drawable/ic_action_date" />
+                    </LinearLayout>
                     </LinearLayout>
                 </ScrollView>
             </LinearLayout>

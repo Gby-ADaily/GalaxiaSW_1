@@ -1,5 +1,7 @@
 package com.example.toshiba_glx.galaxiasw_1;
 
+import android.content.Context;
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
@@ -23,10 +25,15 @@ public class JSONdata   {
     static String response = null;
     public final static int GET = 1;
     public final static int POST = 2;
+    Context ctx;
     //CONSTRUCTOR
-    public JSONdata() {
+    public JSONdata(Context ctx) {
+        this.ctx=ctx;
     }
-
+    public String getJSON(int contador){
+       String URL= String.format("%s?contador=%d",ctx.getString(R.string.url),contador);
+        return makeServiceCall(URL,GET);
+    }
     public String makeServiceCall(String url, int method) {
         return this.makeServiceCall(url, method, null);
     }
