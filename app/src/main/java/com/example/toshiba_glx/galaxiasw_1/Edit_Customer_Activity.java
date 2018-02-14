@@ -33,10 +33,10 @@ public class Edit_Customer_Activity extends AppCompatActivity implements View.On
     String clienteID;
     String URL;
     JSONArray pers;
-    EditText txtNombre,txtDireccion
+    EditText txtRuc,txtNombre,txtDireccion
             ,txtTelefono,txtFax,txtCelular,txtRpm,txtLocalidad
             ,txtCredito,txtPagWeb;
-    TextView txtCodigo,txtRuc;
+    TextView txtCodigo;
 
     private static final String CERO = "0";
     private static final String BARRA = "/";
@@ -52,22 +52,23 @@ public class Edit_Customer_Activity extends AppCompatActivity implements View.On
     ImageButton ibObtenerFecha;
     Spinner spnGenero;
 
+    //cliente_CLASS cliente;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit__customer);
         // agrega la flecha de back
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        //cliente= new cliente_CLASS(this);
         Intent i = getIntent();
         clienteID = i.getStringExtra("clienteId");
-
+        //cliente.setCod(clienteID);
         spnGenero=(Spinner) findViewById(R.id.spnGenero);
         etFecha = (TextView) findViewById(R.id.txtNacimiento);
         ibObtenerFecha = (ImageButton) findViewById(R.id.btnPickerDate);
         //--
         txtCodigo = (TextView) findViewById(R.id.txtCodigo);
-        txtRuc = (TextView) findViewById(R.id.txtRuc);
+        txtRuc = (EditText) findViewById(R.id.txtRuc);
         txtNombre = (EditText) findViewById(R.id.txtNombre);
         txtDireccion = (EditText) findViewById(R.id.txtDireccion);
         txtTelefono= (EditText) findViewById(R.id.txtTelefono);
@@ -87,12 +88,16 @@ public class Edit_Customer_Activity extends AppCompatActivity implements View.On
         spnGenero.setAdapter(adapter);
 
         URL = String.format("%s?consulta=%s",getString(R.string.url),clienteID);
-        new GetCostumer().execute();
-    }
+        new GetCostumer(true).execute();
+        //cliente.setURL(String.format("%s?consulta=%s",getString(R.string.url),clienteID));
+        //cliente.setConsulta(true);
+        //cliente.execute();
 
+    }
     private class GetCostumer extends AsyncTask<Void, Void, Void> {
         private ProgressDialog pDialog;
-        public GetCostumer() {
+        boolean consulta=false;
+        public GetCostumer(boolean consulta) {this.consulta=consulta;
         }
 
         @Override
@@ -116,33 +121,45 @@ public class Edit_Customer_Activity extends AppCompatActivity implements View.On
             if (jsonStr != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(jsonStr);
-
-                    // Getting JSON Array node
+                        if( consulta){
                     pers = jsonObj.getJSONArray("gx_cliente");
+    for (int i = 0; i < pers.length(); i++) {
+        JSONObject c = pers.getJSONObject(i);
 
-                    // looping through All Equipos
-                    for (int i = 0; i < pers.length(); i++) {
-                        JSONObject c = pers.getJSONObject(i);
+        txtCodigo.setText(String.format("Código: %s",c.getString("ccodclie")));
+        txtRuc.setText(c.getString("crucclie"));
+        txtNombre.setText(c.getString("cnomclie"));
+        txtDireccion.setText(c.getString("cdirclie"));
+        txtTelefono.setText(c.getString("cnumtele"));
+        txtFax.setText(c.getString("cnumfax_"));
+        txtCelular.setText(c.getString("cnumcelu"));
+        txtRpm.setText(c.getString("cnumrpm_"));
+        txtLocalidad.setText(c.getString("clocalid"));
+        txtCredito.setText(c.getString("nlimcred"));
+        txtPagWeb.setText(c.getString("cpagweb_"));
+        spnGenero.setSelection(((c.getString("csexo").equals("M"))?0:1));
+        String fNacimiento = c.getString("ffecnaci").replace("-",BARRA); // dd-mm-yy
+        cal.setTime(sdf.parse(fNacimiento));
+        mes = cal.get(Calendar.MONTH);
+        dia = cal.get(Calendar.DAY_OF_MONTH)+1 ;
+        anio = cal.get(Calendar.YEAR);
+        etFecha.setText(dia + BARRA + mes + BARRA + anio);
+    }
+}else if( !consulta){
+                            pers = jsonObj.getJSONArray("estado");
+                            for (int i = 0; i < pers.length(); i++) {
+                                JSONObject c = pers.getJSONObject(i);
+                                if(c.getString("actualizar").equals("exito")){
+                                    //Toast.makeText(Edit_Customer_Activity.this,"Se guardaron los cambios",Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(Edit_Customer_Activity.this,  Detail_Customer_Activity.class);
+                                    intent.putExtra("clienteId", clienteID);
+                                    startActivity(intent);
+                                }else{
+                                    Toast.makeText(Edit_Customer_Activity.this,"No se guardaron los cambio",Toast.LENGTH_SHORT).show();
+                                }
 
-                        txtCodigo.setText(String.format("Código: %s",c.getString("ccodclie")));
-                        txtRuc.setText(String.format("RUC: %s",c.getString("crucclie")));
-                        txtNombre.setText(c.getString("cnomclie"));
-                        txtDireccion.setText(c.getString("cdirclie"));
-                        txtTelefono.setText(c.getString("cnumtele"));
-                        txtFax.setText(c.getString("cnumfax_"));
-                        txtCelular.setText(c.getString("cnumcelu"));
-                        txtRpm.setText(c.getString("cnumrpm_"));
-                        txtLocalidad.setText(c.getString("clocalid"));
-                        txtCredito.setText(c.getString("nlimcred"));
-                        txtPagWeb.setText(c.getString("cpagweb_"));
-                        spnGenero.setSelection(((c.getString("csexo").equals("M"))?0:1));
-                        String fNacimiento = c.getString("ffecnaci").replace("-",BARRA); // dd-mm-yy
-                        cal.setTime(sdf.parse(fNacimiento));
-                        mes = cal.get(Calendar.MONTH);
-                        dia = cal.get(Calendar.DAY_OF_MONTH)+1 ;
-                        anio = cal.get(Calendar.YEAR);
-                        etFecha.setText(dia + BARRA + mes + BARRA + anio);
-                    }
+                                }
+                        }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 } catch (ParseException e) {
@@ -183,6 +200,10 @@ public class Edit_Customer_Activity extends AppCompatActivity implements View.On
     public boolean onOptionsItemSelected(MenuItem item) {
 
        switch(item.getItemId()){
+           case R.id.action_done:
+               URL = String.format("%s?actualizar=%s&ruc=%s&id=%s",getString(R.string.url),"A",txtRuc.getText().toString(),clienteID);
+               new GetCostumer(false).execute();
+               break;
            default:
                Toast.makeText(this, "atras:"+item.getItemId()
                        , Toast.LENGTH_SHORT).show();

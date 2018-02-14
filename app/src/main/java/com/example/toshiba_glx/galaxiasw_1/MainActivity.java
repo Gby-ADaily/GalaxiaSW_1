@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                         String espiritu = habilidades.getString("Espiritu");
                         String fortaleza = habilidades.getString("Fortaleza");*/
 
-                        cliente_CLASS e=new cliente_CLASS();
+                        cliente_CLASS e=new cliente_CLASS(MainActivity.this);
                         e.setCod(cod);
                         e.setRuc(ruc);
                         e.setNombre(nom);

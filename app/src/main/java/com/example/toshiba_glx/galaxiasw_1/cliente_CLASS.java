@@ -1,19 +1,49 @@
 package com.example.toshiba_glx.galaxiasw_1;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.util.Log;
+import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.ParseException;
+import java.util.Calendar;
+
 /**
  * Created by toshiba_glx on 8/02/2018.
  */
 
-public class cliente_CLASS {
+public class cliente_CLASS extends AsyncTask<Void, Void, Void> {
     private String ccodClie, crucClie, cnomClie,cdirclie,cnumtele,cnumfax_,cnumcelu,
             cnumrpm_,clocalid,nlimcred,cpagweb_,nlisprec,ctipvia_,cnomvia_,cnumvia_,
             cintvia_,czonvia_,cdisvia_,cprovia_,cdepvia_,cemail__,idclient,idzona,
             comercial,situacion,acumulados,cedad,csexo,ffecnaci;
 
-    public cliente_CLASS() {
-        super();
+    private ProgressDialog pDialog;
+    boolean consulta=false;
+    Context ctx;
+    String URL;
+    JSONArray pers;
+    Class clase;
+    public cliente_CLASS(Context context) {
+        this.ctx = context;
     }
-
+    public cliente_CLASS(Context context,Class clase) {
+        this.ctx = context;
+        //this.clase= new clase();
+    }
+    public void setURL(String url) {
+        this.URL = url;
+    }
+    public void setConsulta(boolean consulta) {
+        this.consulta=consulta;
+    }
     public String getCod() {
         return ccodClie;
     }
@@ -79,6 +109,12 @@ public class cliente_CLASS {
     }
     public void setPagWeb(String cpagweb_) {
         this.cpagweb_ = cpagweb_;
+    }
+    public String getgenero() {
+        return csexo;
+    }
+    public void setGenero(String csexo) {
+        this.cpagweb_ = csexo;
     }
     public String getLisprec() {
         return nlisprec;
@@ -150,5 +186,88 @@ public class cliente_CLASS {
     public void setIDzona(String idzona) {
         this.idzona = idzona;
     }
-    /*comercial,situacion,acumulados,cedad,csexo,ffecnaci*/
+    /*comercial,situacion,acumulados,cedad*/
+    public String getNacimiento() {
+        return ffecnaci;
+    }
+    public void setNacimiento(String ffecnaci) {
+        this.ffecnaci = ffecnaci;
+    }
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(ctx);
+            pDialog.setMessage("Getting Data ...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
+        }
+
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            // CREAMOS LA INSTANCIA DE LA CLASE
+            JSONdata sh = new JSONdata(ctx);
+
+            String jsonStr = sh.makeServiceCall(URL, JSONdata.GET);
+            if (jsonStr != null) {
+                try {
+                    JSONObject jsonObj = new JSONObject(jsonStr);
+                    if( consulta){
+                        pers = jsonObj.getJSONArray("gx_cliente");
+                        for (int i = 0; i < pers.length(); i++) {
+                            JSONObject c = pers.getJSONObject(i);
+
+                            setCod(c.getString("ccodclie"));
+                            setRuc(c.getString("crucclie"));
+                            setNombre(c.getString("cnomclie"));
+                            setDireccion(c.getString("cdirclie"));
+                            setNumTele(c.getString("cnumtele"));
+                            setFax(c.getString("cnumfax_"));
+                            setCelular(c.getString("cnumcelu"));
+                            setRPM(c.getString("cnumrpm_"));
+                            setLocalidad(c.getString("clocalid"));
+                            setLimcred(c.getString("nlimcred"));
+                            setPagWeb(c.getString("cpagweb_"));
+                            setGenero(c.getString("csexo"));
+                            setNacimiento(c.getString("ffecnaci").replace("-","/")); // dd-mm-yy
+
+                        }
+                    }else if( !consulta){
+                        pers = jsonObj.getJSONArray("estado");
+                        for (int i = 0; i < pers.length(); i++) {
+                            JSONObject c = pers.getJSONObject(i);
+                            if(c.getString("actualizar").equals("exito")){
+                                //Toast.makeText(Edit_Customer_Activity.this,"Se guardaron los cambios",Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(ctx,  Detail_Customer_Activity.class);
+                                intent.putExtra("clienteId", getCod());
+                                ctx.startActivity(intent);
+                            }else{
+                                Toast.makeText(ctx,"No se guardaron los cambio",Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                Log.e("ServiceHandler", "Esta habiendo problemas para cargar el JSON");
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            // Dismiss the progress dialog
+            if (pDialog.isShowing()){
+                pDialog.dismiss();
+            }
+            //clase.completarCampos();
+        }
+
+
 }
