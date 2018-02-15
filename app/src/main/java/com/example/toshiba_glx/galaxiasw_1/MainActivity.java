@@ -1,5 +1,6 @@
 package com.example.toshiba_glx.galaxiasw_1;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
@@ -129,10 +130,12 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             JSONdata sh = new JSONdata(MainActivity.this);
 
             String jsonStr = sh.makeServiceCall(URL, JSONdata.GET);
+            //String jsonStr ="";// sh.makeServiceCall(URL, JSONdata.GET);
 
             if (jsonStr != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(jsonStr);
+                    //JSONObject jsonObj = sh.makeServiceCall(URL);
 
                     // Getting JSON Array node
                     pers = jsonObj.getJSONArray("gx_cliente");
@@ -159,7 +162,9 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                }
+                }/* catch (IOException e) {
+                    e.printStackTrace();
+                }*/
             } else {
                 Log.e("ServiceHandler", "Esta habiendo problemas para cargar el JSON");
             }

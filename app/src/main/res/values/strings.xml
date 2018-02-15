@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">GalaxiaSW_1</string>
-    <string name="url">http://192.168.1.35/galaxiaSW/consulta.php</string>
+    <string name="url">http://192.168.1.18/galaxiaSW/consulta.php</string>
     <string-array name="genero_array">
         <item>Masculino</item>
         <item>Femenino</item>
