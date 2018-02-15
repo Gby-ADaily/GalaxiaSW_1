@@ -2,8 +2,8 @@
     <string name="app_name">GalaxiaSW_1</string>
     <string name="url">http://192.168.1.35/galaxiaSW/consulta.php</string>
     <string-array name="genero_array">
-        <item>Varón</item>
-        <item>Mujer</item>
+        <item>Masculino</item>
+        <item>Femenino</item>
     </string-array>
     <string name="formato_fecha">dd/mm/yyyy</string>
     <string name="formato_hora">hh:mm</string>

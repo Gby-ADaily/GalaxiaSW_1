@@ -118,6 +118,12 @@
                     android:layout_margin="5dp"
                     android:text="Tipo Via:"/>
                 <TextView
+                    android:id="@+id/txtNombreVia"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:text="Nombre Via:"/>
+                <TextView
                     android:id="@+id/txtNumeroVia"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

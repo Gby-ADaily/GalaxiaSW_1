@@ -19,7 +19,7 @@ import java.util.Calendar;
  * Created by toshiba_glx on 8/02/2018.
  */
 
-public class cliente_CLASS extends AsyncTask<Void, Void, Void> {
+public class cliente_CLASS  {
     private String ccodClie, crucClie, cnomClie,cdirclie,cnumtele,cnumfax_,cnumcelu,
             cnumrpm_,clocalid,nlimcred,cpagweb_,nlisprec,ctipvia_,cnomvia_,cnumvia_,
             cintvia_,czonvia_,cdisvia_,cprovia_,cdepvia_,cemail__,idclient,idzona,
@@ -44,12 +44,8 @@ public class cliente_CLASS extends AsyncTask<Void, Void, Void> {
     public void setConsulta(boolean consulta) {
         this.consulta=consulta;
     }
-    public String getCod() {
-        return ccodClie;
-    }
-    public void setCod(String ccodClie) {
-        this.ccodClie = ccodClie;
-    }
+    public String getCod() {return ccodClie;}
+    public void setCod(String ccodClie) {this.ccodClie = ccodClie;}
     public String getRuc() {
         return crucClie;
     }
@@ -95,7 +91,7 @@ public class cliente_CLASS extends AsyncTask<Void, Void, Void> {
     public String getLocalidad() {
         return clocalid;
     }
-    public void setLocalidad(String cnumfax_) {
+    public void setLocalidad(String clocalid) {
         this.clocalid = clocalid;
     }
     public String getLimcred() {
@@ -114,7 +110,7 @@ public class cliente_CLASS extends AsyncTask<Void, Void, Void> {
         return csexo;
     }
     public void setGenero(String csexo) {
-        this.cpagweb_ = csexo;
+        this.csexo = csexo;
     }
     public String getLisprec() {
         return nlisprec;
@@ -155,17 +151,17 @@ public class cliente_CLASS extends AsyncTask<Void, Void, Void> {
     public String getDisvia() {
         return cdisvia_;
     }
-    public void setDisvia_(String cdisvia_) {
+    public void setDisvia(String cdisvia_) {
         this.cdisvia_ = cdisvia_;
     }
-    public String getProvia_() {return cprovia_;}
-    public void setProvia_(String cprovia_) {
+    public String getProvia() {return cprovia_;}
+    public void setProvia(String cprovia_) {
         this.cprovia_ = cprovia_;
     }
-    public String getDepvia_() {
+    public String getDepvia() {
         return cdepvia_;
     }
-    public void setDepvia_(String cdepvia_) {
+    public void setDepvia(String cdepvia_) {
         this.cdepvia_ = cdepvia_;
     }
     public String getEmail() {
@@ -186,88 +182,70 @@ public class cliente_CLASS extends AsyncTask<Void, Void, Void> {
     public void setIDzona(String idzona) {
         this.idzona = idzona;
     }
-    /*comercial,situacion,acumulados,cedad*/
+    public String getComercial() {
+        return comercial;
+    }
+    public void setComercial(String comercial) {
+        this.comercial = comercial;
+    }
+    public String getSituacion() {return situacion; }
+    public void setSituacion(String situacion) {
+        this.situacion = situacion;
+    }
+    public String getAcumulado() {
+        return acumulados;
+    }
+    public void setAcumulado(String acumulados) {
+        this.acumulados = acumulados;
+    }
+    public String getEdad() {
+        return cedad;
+    }
+    public void setEdad(String cedad) {
+        this.cedad = cedad;
+    }
     public String getNacimiento() {
         return ffecnaci;
     }
     public void setNacimiento(String ffecnaci) {
         this.ffecnaci = ffecnaci;
     }
+    public void getDataJSON(JSONObject jsonObj) throws JSONException {
+            pers = jsonObj.getJSONArray("gx_cliente");
+            for (int i = 0; i < pers.length(); i++) {
+                JSONObject c = pers.getJSONObject(i);
 
+                setCod(c.getString("ccodclie"));
+                setRuc(c.getString("crucclie"));
+                setNombre(c.getString("cnomclie"));
+                setDireccion(c.getString("cdirclie"));
+                setNumTele(c.getString("cnumtele"));
+                setFax(c.getString("cnumfax_"));
+                setCelular(c.getString("cnumcelu"));
+                setRPM(c.getString("cnumrpm_"));
+                setLocalidad(c.getString("clocalid"));
+                setLimcred(c.getString("nlimcred"));
+                setPagWeb(c.getString("cpagweb_"));
+                setLisprec(c.getString("nlisprec"));
+                setTipia(c.getString("ctipvia_"));
+                setNomvia(c.getString("cnomvia_"));
+                setNumvia(c.getString("cnumvia_"));
+                setIntvia(c.getString("cintvia_"));
+                setZonvia(c.getString("czonvia_"));
+                setDisvia(c.getString("cdisvia_"));
+                setProvia(c.getString("cprovia_"));
+                setDepvia(c.getString("cdepvia_"));
+                setEmail(c.getString("cemail__"));
+                setIDclient(c.getString("idclient"));
+                setIDzona(c.getString("idzona"));
+                setComercial(c.getString("comercial"));
+                setSituacion(c.getString("situacion"));
+                setAcumulado(c.getString("acumulados"));
+                setEdad(c.getString("cedad"));
+                setGenero(c.getString("csexo"));
+                setNacimiento(c.getString("ffecnaci").replace("-","/")); // dd-mm-yy
 
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            pDialog = new ProgressDialog(ctx);
-            pDialog.setMessage("Getting Data ...");
-            pDialog.setIndeterminate(false);
-            pDialog.setCancelable(true);
-            pDialog.show();
-        }
-
-        @Override
-        protected Void doInBackground(Void... arg0) {
-            // CREAMOS LA INSTANCIA DE LA CLASE
-            JSONdata sh = new JSONdata(ctx);
-
-            String jsonStr = sh.makeServiceCall(URL, JSONdata.GET);
-            if (jsonStr != null) {
-                try {
-                    JSONObject jsonObj = new JSONObject(jsonStr);
-                    if( consulta){
-                        pers = jsonObj.getJSONArray("gx_cliente");
-                        for (int i = 0; i < pers.length(); i++) {
-                            JSONObject c = pers.getJSONObject(i);
-
-                            setCod(c.getString("ccodclie"));
-                            setRuc(c.getString("crucclie"));
-                            setNombre(c.getString("cnomclie"));
-                            setDireccion(c.getString("cdirclie"));
-                            setNumTele(c.getString("cnumtele"));
-                            setFax(c.getString("cnumfax_"));
-                            setCelular(c.getString("cnumcelu"));
-                            setRPM(c.getString("cnumrpm_"));
-                            setLocalidad(c.getString("clocalid"));
-                            setLimcred(c.getString("nlimcred"));
-                            setPagWeb(c.getString("cpagweb_"));
-                            setGenero(c.getString("csexo"));
-                            setNacimiento(c.getString("ffecnaci").replace("-","/")); // dd-mm-yy
-
-                        }
-                    }else if( !consulta){
-                        pers = jsonObj.getJSONArray("estado");
-                        for (int i = 0; i < pers.length(); i++) {
-                            JSONObject c = pers.getJSONObject(i);
-                            if(c.getString("actualizar").equals("exito")){
-                                //Toast.makeText(Edit_Customer_Activity.this,"Se guardaron los cambios",Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(ctx,  Detail_Customer_Activity.class);
-                                intent.putExtra("clienteId", getCod());
-                                ctx.startActivity(intent);
-                            }else{
-                                Toast.makeText(ctx,"No se guardaron los cambio",Toast.LENGTH_SHORT).show();
-                            }
-
-                        }
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                Log.e("ServiceHandler", "Esta habiendo problemas para cargar el JSON");
             }
-
-            return null;
         }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
-            // Dismiss the progress dialog
-            if (pDialog.isShowing()){
-                pDialog.dismiss();
-            }
-            //clase.completarCampos();
-        }
-
 
 }

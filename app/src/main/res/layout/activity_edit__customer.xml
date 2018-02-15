@@ -242,23 +242,39 @@
                             android:layout_height="wrap_content"
                             android:text="Edit Tipo Via"
                             android:textSize="13sp"/>
-                    </LinearLayout>
+                        </LinearLayout>
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
-                        <TextView
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="5dp"
+                                android:text="Nombre Via:"/>
+                            <EditText
+                                android:id="@+id/txtNombreVia"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Edit Nombre Via"
+                                android:textSize="13sp"/>
+                        </LinearLayout>
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_margin="5dp"
-                            android:text="Número Via:"/>
-                        <EditText
-                            android:id="@+id/txtNumeroVia"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Edit Nombre Via"
-                            android:textSize="13sp"/>
-                    </LinearLayout>
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="5dp"
+                                android:text="Número Via:"/>
+                            <EditText
+                                android:id="@+id/txtNumeroVia"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Edit Numero Via"
+                                android:textSize="13sp"/>
+                        </LinearLayout>
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

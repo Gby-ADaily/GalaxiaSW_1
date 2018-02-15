@@ -17,11 +17,15 @@ import org.json.JSONObject;
 
 public class Detail_Customer_Activity extends AppCompatActivity {
     String clienteID;
+    cliente_CLASS clienteClass;
     String URL;
     JSONArray pers;
     TextView txtCodigo,txtRuc,txtNombre,txtDireccion
             ,txtTelefono,txtFax,txtCelular,txtRpm,txtLocalidad
-            ,txtCredito,txtPagWeb,txtGenero,txtFechaNacimiento;
+            ,txtCredito,txtPagWeb,txtPrecio,txtTipoVia,txtNombreVia,txtNumeroVia,
+            txtIntVia,txtZonaVia,txtDistritoVia,txtProvinciaVia,txtDepartamentoVia,
+            txtEmail,txtIdCliente,txtIdZona,txtComercial,txtSituacion,txtAcumulado,
+            txtEdad,txtGenero,txtFechaNacimiento;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,12 +49,62 @@ public class Detail_Customer_Activity extends AppCompatActivity {
         txtLocalidad= (TextView) findViewById(R.id.txtLocalidad);
         txtCredito= (TextView) findViewById(R.id.txtCredito);
         txtPagWeb= (TextView) findViewById(R.id.txtPagWeb);
+        txtPrecio= (TextView) findViewById(R.id.txtPrecio);
+        txtTipoVia= (TextView) findViewById(R.id.txtTipoVia);
+        txtNombreVia=(TextView) findViewById(R.id.txtNombreVia);
+        txtNumeroVia= (TextView) findViewById(R.id.txtNumeroVia);
+        txtIntVia= (TextView) findViewById(R.id.txtIntVia);
+        txtZonaVia= (TextView) findViewById(R.id.txtZonaVia);
+        txtDistritoVia= (TextView) findViewById(R.id.txtDistritoVia);
+        txtProvinciaVia= (TextView) findViewById(R.id.txtProvinciaVia);
+        txtDepartamentoVia= (TextView) findViewById(R.id.txtDepartamentoVia);
+        txtEmail= (TextView) findViewById(R.id.txtEmail);
+        txtIdCliente= (TextView) findViewById(R.id.txtIdCliente);
+        txtIdZona= (TextView) findViewById(R.id.txtIdZona);
+        txtComercial= (TextView) findViewById(R.id.txtComercial);
+        txtSituacion= (TextView) findViewById(R.id.txtSituacion);
+        txtAcumulado= (TextView) findViewById(R.id.txtAcumulado);
+        txtEdad= (TextView) findViewById(R.id.txtEdad);
         txtGenero= (TextView) findViewById(R.id.txtGenero);
         txtFechaNacimiento= (TextView) findViewById(R.id.txtFechaNacimiento);
 
+        clienteClass= new cliente_CLASS(this);
+        clienteClass.setCod(clienteID);
 
         URL = String.format("%s?consulta=%s",getString(R.string.url),clienteID);
         new GetCostumer().execute();
+
+    }
+    private void insertarDato(){
+        txtCodigo.setText(String.format("Código: %s",clienteClass.getCod()));
+        txtRuc.setText(String.format("RUC: %s",clienteClass.getRuc()));
+        txtNombre.setText(String.format("Nombre: %s",clienteClass.getNombre()));
+        txtDireccion.setText(String.format("Dirección: %s",clienteClass.getDireccion()));
+        txtTelefono.setText(String.format("Teléfono: %s",clienteClass.getNumTele()));
+        txtFax.setText(String.format("Fax: %s",clienteClass.getFax()));
+        txtCelular.setText(String.format("Celular: %s",clienteClass.getCelular()));
+        txtRpm.setText(String.format("RPM: %s",clienteClass.getRPM()));
+        txtLocalidad.setText(String.format("Localidad: %s",clienteClass.getLocalidad()));
+        txtCredito.setText(String.format("Credito: %s",clienteClass.getLimcred()));
+        txtPagWeb.setText(String.format("Página Web: %s",clienteClass.getPagWeb()));
+        txtPrecio.setText(String.format("Precio: %s",clienteClass.getLisprec()));
+        txtTipoVia.setText(String.format("Tipo Via: %s",clienteClass.getTipvia()));
+        txtNombreVia.setText(String.format("Nombre Via: %s",clienteClass.getNomvia()));
+        txtNumeroVia.setText(String.format("Número Via: %s",clienteClass.getNumvia()));
+        txtIntVia.setText(String.format("Int Via: %s",clienteClass.getIntvia()));
+        txtZonaVia.setText(String.format("Zona Via: %s",clienteClass.getZonvia()));
+        txtDistritoVia.setText(String.format("Distrito Via: %s",clienteClass.getDisvia()));
+        txtProvinciaVia.setText(String.format("Provincia Via: %s",clienteClass.getProvia()));
+        txtDepartamentoVia.setText(String.format("Departamento Via: %s",clienteClass.getDepvia()));
+        txtEmail.setText(String.format("E-mail: %s",clienteClass.getEmail()));
+        txtIdCliente.setText(String.format("ID zona: %s",clienteClass.getIDclient()));
+        txtIdZona.setText(String.format("ID zona: %s",clienteClass.getIDzona()));
+        txtComercial.setText(String.format("Comercial: %s",clienteClass.getComercial()));
+        txtSituacion.setText(String.format("Situación: %s",clienteClass.getSituacion()));
+        txtAcumulado.setText(String.format("Acumulados: %s",clienteClass.getAcumulado()));
+        txtEdad.setText(String.format("Edad: %s",clienteClass.getEdad()));
+        txtGenero.setText(String.format("Género: %s",((clienteClass.getgenero().equals("M"))?"Varón":"Mujer")));
+        txtFechaNacimiento.setText(String.format("Fecha Nacimiento: %s",clienteClass.getNacimiento()));
 
     }
     private class GetCostumer extends AsyncTask<Void, Void, Void> {
@@ -78,29 +132,8 @@ public class Detail_Customer_Activity extends AppCompatActivity {
 
             if (jsonStr != null) {
                 try {
-                    JSONObject jsonObj = new JSONObject(jsonStr);
-                    // Getting JSON Array node
-                    pers = jsonObj.getJSONArray("gx_cliente");
-
-                    // looping through All Equipos
-                    for (int i = 0; i < pers.length(); i++) {
-                        JSONObject c = pers.getJSONObject(i);
-
-                        txtCodigo.setText(String.format("Código: %s",c.getString("ccodclie")));
-                        txtRuc.setText(String.format("RUC: %s",c.getString("crucclie")));
-                        txtNombre.setText(String.format("Nombre: %s",c.getString("cnomclie")));
-                        txtDireccion.setText(String.format("Dirección: %s",c.getString("cdirclie")));
-                        txtTelefono.setText(String.format("Teléfono: %s",c.getString("cnumtele")));
-                        txtFax.setText(String.format("Fax: %s",c.getString("cnumfax_")));
-                        txtCelular.setText(String.format("Celular: %s",c.getString("cnumcelu")));
-                        txtRpm.setText(String.format("RPM: %s",c.getString("cnumrpm_")));
-                        txtLocalidad.setText(String.format("Localidad: %s",c.getString("clocalid")));
-                        txtCredito.setText(String.format("Credito: %s",c.getString("nlimcred")));
-                        txtPagWeb.setText(String.format("Página Web: %s",c.getString("cpagweb_")));
-                        txtGenero.setText(String.format("Género: %s",((c.getString("csexo").equals("M"))?"Varón":"Mujer")));
-                        txtFechaNacimiento.setText(String.format("Fecha Nacimiento: %s",c.getString("ffecnaci")));
-
-                    }
+                    clienteClass.getDataJSON(new JSONObject(jsonStr));
+                    insertarDato();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
